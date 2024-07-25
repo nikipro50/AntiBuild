@@ -226,5 +226,5 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
         String c() {
             return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(c.getString(this.a, this.b)));
         }
-        }
+    }
 }

@@ -194,8 +194,8 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
     }
 
     enum Lang {
-        A("on", "&9AntiBuild &8• &7Build mode &a&nEnabled&7."),
-        B("off", "&9AntiBuild &8• &7Build mode &c&nDisabled&7."),
+        A("On", "&9AntiBuild &8• &7Build mode &a&nEnabled&7."),
+        B("Off", "&9AntiBuild &8• &7Build mode &c&nDisabled&7."),
         C("NoPerms", "&cYou don't have permission to do that!");
 
         final String a;

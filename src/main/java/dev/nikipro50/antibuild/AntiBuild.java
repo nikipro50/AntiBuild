@@ -200,7 +200,7 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
         A("On", "&9AntiBuild &8• &7Build mode &a&nEnabled&7."),
         B("Off", "&9AntiBuild &8• &7Build mode &c&nDisabled&7."),
         C("NoPerms", "&cYou don't have permission to do that!"),
-        D("NoConsoleCommand", "This command is executable only by players!"),
+        D("NoConsoleCommand", "This command is executable only by players!");
 
         final String a;
         final String b;

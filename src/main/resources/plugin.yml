@@ -1,0 +1,7 @@
+name: AntiBuild
+version: '${version}'
+main: dev.nikipro50.antibuild.AntiBuild
+api-version: '1.13'
+load: STARTUP
+authors: [nikipro50]
+description: Use a command for break and build in your server!

@@ -61,7 +61,10 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
     }
 
     public boolean onCommand(CommandSender a, Command b, String c, String[] d) {
-        if (!(a instanceof Player)) return true;
+        if (!(a instanceof Player)) {
+            Bukkit.getConsoleSender().sendMessage(Lang.D.c());
+            return true;
+        }
         if (b.getLabel().equalsIgnoreCase("build")) {
             if (!a.hasPermission("build.use")) {
                 a.sendMessage(Lang.C.c());
@@ -196,7 +199,8 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
     enum Lang {
         A("On", "&9AntiBuild &8• &7Build mode &a&nEnabled&7."),
         B("Off", "&9AntiBuild &8• &7Build mode &c&nDisabled&7."),
-        C("NoPerms", "&cYou don't have permission to do that!");
+        C("NoPerms", "&cYou don't have permission to do that!"),
+        D("NoConsoleCommand", "This command is executable only by players!"),
 
         final String a;
         final String b;
@@ -222,5 +226,5 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
         String c() {
             return ChatColor.translateAlternateColorCodes('&', Objects.requireNonNull(c.getString(this.a, this.b)));
         }
-    }
+        }
 }

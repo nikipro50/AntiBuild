@@ -1,6 +1,8 @@
 package dev.nikipro50.antibuild;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -18,13 +20,18 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 public final class AntiBuild extends JavaPlugin implements Listener, CommandExecutor {
     File a;
     YamlConfiguration b;
     List<String> c;
+    A d;
 
     @Override
     public void onEnable() {
@@ -33,6 +40,8 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
         a();
         b();
         d();
+        this.d = new A(this);
+        this.d.c();
         Bukkit.getPluginManager().registerEvents(this, this);
         Bukkit.getPluginCommand("build").setExecutor(this);
         Bukkit.getPluginCommand("build").setTabCompleter(this);
@@ -139,6 +148,48 @@ public final class AntiBuild extends JavaPlugin implements Listener, CommandExec
             b.save(a);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    static class A {
+        final JavaPlugin a;
+
+        <T extends JavaPlugin> A(T a) {
+            this.a = a;
+        }
+
+        void a(Consumer<String> a) {
+            try {
+                URL b = new URL("https://api.github.com/repos/nikipro50/AntiBuild/releases/latest");
+                HttpURLConnection c = (HttpURLConnection) b.openConnection();
+                c.setRequestMethod("GET");
+                JsonObject d = (new JsonParser()).parse(new InputStreamReader(c.getInputStream())).getAsJsonObject();
+                String e = d.get("tag_name").getAsString();
+                a.accept(e);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+
+        void b(BiConsumer<String, Boolean> a) {
+            a(b -> {
+                if (b.equals(d()))
+                    a.accept(b, true);
+                a.accept(b, false);
+            });
+        }
+
+        void c() {
+            Bukkit.getScheduler().runTaskAsynchronously(this.a, () -> {
+                b((a, b) -> {
+                    if (b) Bukkit.getConsoleSender().sendMessage("§9AntiBuild §7is up to date!");
+                    else Bukkit.getConsoleSender().sendMessage("§9AntiBuild §7isn't up to date!");
+                });
+            });
+        }
+
+        String d() {
+            return this.a.getDescription().getVersion();
         }
     }
 
